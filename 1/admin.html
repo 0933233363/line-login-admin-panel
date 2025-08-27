@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE Login Admin Panel</title>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1>🔧 LINE Login Admin Panel</h1>
+            <p>จัดการและปรับแต่งหน้าล็อกอิน LINE</p>
+            <div class="admin-nav">
+                <a href="index.html" target="_blank">👁️ ดูตัวอย่าง</a>
+                <button onclick="refreshPreview()">🔄 รีเฟรชตัวอย่าง</button>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <!-- ส่วนปรับสี -->
+            <section class="admin-section">
+                <h2>🎨 ปรับสีและธีม</h2>
+                <div class="color-grid">
+                    <div class="color-item">
+                        <label for="bgColor">สีพื้นหลัง</label>
+                        <input type="color" id="bgColor" value="#1a1a1a">
+                        <input type="text" id="bgColorText" value="#1a1a1a" maxlength="7">
+                    </div>
+                    
+                    <div class="color-item">
+                        <label for="boxColor">สีกล่องล็อกอิน</label>
+                        <input type="color" id="boxColor" value="#2a2a2a">
+                        <input type="text" id="boxColorText" value="#2a2a2a" maxlength="7">
+                    </div>
+                    
+                    <div class="color-item">
+                        <label for="logoColor">สี LINE Logo</label>
+                        <input type="color" id="logoColor" value="#00c300">
+                        <input type="text" id="logoColorText" value="#00c300" maxlength="7">
+                    </div>
+                    
+                    <div class="color-item">
+                        <label for="inputBgColor">สีพื้นหลังช่อง Input</label>
+                        <input type="color" id="inputBgColor" value="#3a3a3a">
+                        <input type="text" id="inputBgColorText" value="#3a3a3a" maxlength="7">
+                    </div>
+                    
+                    <div class="color-item">
+                        <label for="inputBorderColor">สี Border ช่อง Input</label>
+                        <input type="color" id="inputBorderColor" value="#555555">
+                        <input type="text" id="inputBorderColorText" value="#555555" maxlength="7">
+                    </div>
+                    
+                    <div class="color-item">
+                        <label for="inputTextColor">สีข้อความใน Input</label>
+                        <input type="color" id="inputTextColor" value="#ffffff">
+                        <input type="text" id="inputTextColorText" value="#ffffff" maxlength="7">
+                    </div>
+                    
+                    <div class="color-item">
+                        <label for="btnEnabledColor">สีปุ่มเมื่อใช้งานได้</label>
+                        <input type="color" id="btnEnabledColor" value="#00c851">
+                        <input type="text" id="btnEnabledColorText" value="#00c851" maxlength="7">
+                    </div>
+                    
+                    <div class="color-item">
+                        <label for="btnDisabledColor">สีปุ่มเมื่อปิดใช้งาน</label>
+                        <input type="color" id="btnDisabledColor" value="#4a4a4a">
+                        <input type="text" id="btnDisabledColorText" value="#4a4a4a" maxlength="7">
+                    </div>
+                    
+                    <div class="color-item">
+                        <label for="textColor">สีข้อความหลัก</label>
+                        <input type="color" id="textColor" value="#ffffff">
+                        <input type="text" id="textColorText" value="#ffffff" maxlength="7">
+                    </div>
+                    
+                    <div class="color-item">
+                        <label for="secondaryTextColor">สีข้อความรอง</label>
+                        <input type="color" id="secondaryTextColor" value="#aaaaaa">
+                        <input type="text" id="secondaryTextColorText" value="#aaaaaa" maxlength="7">
+                    </div>
+                    
+                    <div class="color-item">
+                        <label for="errorColor">สีข้อความแสดงข้อผิดพลาด</label>
+                        <input type="color" id="errorColor" value="#ff4444">
+                        <input type="text" id="errorColorText" value="#ff4444" maxlength="7">
+                    </div>
+                    
+                    <div class="color-item">
+                        <label for="linkColor">สีลิงก์</label>
+                        <input type="color" id="linkColor" value="#4a9eff">
+                        <input type="text" id="linkColorText" value="#4a9eff" maxlength="7">
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="applyColors()">🎨 ใช้สีใหม่</button>
+                    <button class="btn-secondary" onclick="resetColors()">🔄 รีเซ็ตเป็นค่าเริ่มต้น</button>
+                    <button class="btn-secondary" onclick="exportTheme()">📥 ส่งออกธีม</button>
+                    <button class="btn-secondary" onclick="importTheme()">📤 นำเข้าธีม</button>
+                </div>
+            </section>
+
+            <!-- ส่วนปรับข้อความ -->
+            <section class="admin-section">
+                <h2>📝 ปรับแต่งข้อความ</h2>
+                <div class="text-grid">
+                    <div class="text-item">
+                        <label for="emailLabel">ป้ายกำกับอีเมล</label>
+                        <input type="text" id="emailLabel" value="อีเมล">
+                    </div>
+                    
+                    <div class="text-item">
+                        <label for="passwordLabel">ป้ายกำกับรหัสผ่าน</label>
+                        <input type="text" id="passwordLabel" value="รหัสผ่าน">
+                    </div>
+                    
+                    <div class="text-item">
+                        <label for="loginBtnText">ข้อความปุ่มล็อกอิน</label>
+                        <input type="text" id="loginBtnText" value="เข้าสู่ระบบ">
+                    </div>
+                    
+                    <div class="text-item">
+                        <label for="qrBtnText">ข้อความปุ่ม QR Code</label>
+                        <input type="text" id="qrBtnText" value="เข้าสู่ระบบด้วยคิวอาร์โค้ด">
+                    </div>
+                    
+                    <div class="text-item">
+                        <label for="forgotText">ข้อความลืมรหัสผ่าน</label>
+                        <input type="text" id="forgotText" value="ลืมรหัสผ่าน?">
+                    </div>
+                    
+                    <div class="text-item">
+                        <label for="qrTitle">หัวข้อหน้า QR Code</label>
+                        <input type="text" id="qrTitle" value="เข้าสู่ระบบด้วยคิวอาร์โค้ด">
+                    </div>
+                    
+                    <div class="text-item">
+                        <label for="qrRefresh">ข้อความสร้าง QR ใหม่</label>
+                        <input type="text" id="qrRefresh" value="🔄 สร้างคิวอาร์โค้ดใหม่">
+                    </div>
+                    
+                    <div class="text-item">
+                        <label for="backBtnText">ข้อความปุ่มกลับ</label>
+                        <input type="text" id="backBtnText" value="เข้าสู่ระบบด้วยอีเมล">
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="applyTexts()">📝 ใช้ข้อความใหม่</button>
+                    <button class="btn-secondary" onclick="resetTexts()">🔄 รีเซ็ตข้อความ</button>
+                </div>
+            </section>
+
+            <!-- ส่วนปรับแต่งเส้นแบ่ง -->
+            <section class="admin-section">
+                <h2>📏 ปรับแต่งเส้นแบ่ง</h2>
+                <div class="divider-grid">
+                    <div class="divider-item">
+                        <label for="dividerColor">สีเส้นแบ่ง</label>
+                        <input type="color" id="dividerColor" value="#555555">
+                        <input type="text" id="dividerColorText" value="#555555" maxlength="7">
+                    </div>
+                    
+                    <div class="divider-item">
+                        <label for="dividerTextColor">สีข้อความเส้นแบ่ง</label>
+                        <input type="color" id="dividerTextColor" value="#aaaaaa">
+                        <input type="text" id="dividerTextColorText" value="#aaaaaa" maxlength="7">
+                    </div>
+                    
+                    <div class="divider-item">
+                        <label for="dividerThickness">ความหนาเส้น (px)</label>
+                        <input type="range" id="dividerThickness" min="1" max="5" value="1">
+                        <span id="dividerThicknessValue">1px</span>
+                    </div>
+                    
+                    <div class="divider-item">
+                        <label for="dividerSpacing">ระยะห่างจากข้อความ (px)</label>
+                        <input type="range" id="dividerSpacing" min="10" max="50" value="20">
+                        <span id="dividerSpacingValue">20px</span>
+                    </div>
+                    
+                    <div class="divider-item">
+                        <label for="dividerTextPadding">Padding ข้อความ (px)</label>
+                        <input type="range" id="dividerTextPadding" min="5" max="30" value="15">
+                        <span id="dividerTextPaddingValue">15px</span>
+                    </div>
+                    
+                    <div class="divider-item">
+                        <label for="dividerFontSize">ขนาดฟอนต์ข้อความ (px)</label>
+                        <input type="range" id="dividerFontSize" min="10" max="20" value="14">
+                        <span id="dividerFontSizeValue">14px</span>
+                    </div>
+                    
+                    <div class="divider-item">
+                        <label for="showDividers">แสดงเส้นแบ่ง</label>
+                        <input type="checkbox" id="showDividers" checked>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="applyDividers()">📏 ใช้การตั้งค่าเส้นแบ่ง</button>
+                    <button class="btn-secondary" onclick="resetDividers()">🔄 รีเซ็ตเส้นแบ่ง</button>
+                </div>
+            </section>
+
+            <!-- ส่วนปรับขนาดและสัดส่วน -->
+            <section class="admin-section">
+                <h2>📐 ปรับขนาดและสัดส่วน</h2>
+                
+                <!-- ขนาดกล่องล็อกอิน -->
+                <div class="subsection">
+                    <h3>📦 ขนาดกล่องล็อกอิน</h3>
+                    <div class="size-controls-grid">
+                        <div class="size-control">
+                            <label for="boxWidth">ความกว้างกล่อง (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="boxWidth" min="300" max="800" value="400" oninput="updateBoxSize()">
+                                <span class="slider-value">400px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="size-control">
+                            <label for="boxHeight">ความสูงกล่อง (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="boxHeight" min="400" max="800" value="500" oninput="updateBoxSize()">
+                                <span class="slider-value">500px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="size-control">
+                            <label for="boxPadding">Padding ภายในกล่อง (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="boxPadding" min="20" max="80" value="40" oninput="updateBoxSize()">
+                                <span class="slider-value">40px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="size-control">
+                            <label for="boxRadius">มุมโค้งกล่อง (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="boxRadius" min="0" max="50" value="15" oninput="updateBoxSize()">
+                                <span class="slider-value">15px</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ขนาดฟอนต์ -->
+                <div class="subsection">
+                    <h3>🔤 ขนาดฟอนต์</h3>
+                    <div class="size-controls-grid">
+                        <div class="size-control">
+                            <label for="mainHeadingSize">ขนาดฟอนต์หัวข้อหลัก (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="mainHeadingSize" min="24" max="48" value="28" oninput="updateFontSizes()">
+                                <span class="slider-value">28px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="size-control">
+                            <label for="subHeadingSize">ขนาดฟอนต์หัวข้อรอง (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="subHeadingSize" min="14" max="24" value="14" oninput="updateFontSizes()">
+                                <span class="slider-value">14px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="size-control">
+                            <label for="bodyTextSize">ขนาดฟอนต์ปกติ (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="bodyTextSize" min="12" max="20" value="14" oninput="updateFontSizes()">
+                                <span class="slider-value">14px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="size-control">
+                            <label for="buttonTextSize">ขนาดฟอนต์ปุ่ม (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="buttonTextSize" min="14" max="20" value="16" oninput="updateFontSizes()">
+                                <span class="slider-value">16px</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ขนาด QR Code -->
+                <div class="subsection">
+                    <h3>📱 ขนาด QR Code</h3>
+                    <div class="size-controls-grid">
+                        <div class="size-control">
+                            <label for="qrCodeSize">ขนาด QR Code (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="qrCodeSize" min="150" max="300" value="200" oninput="updateQRSize()">
+                                <span class="slider-value">200px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="size-control">
+                            <label for="qrPadding">ระยะห่างรอบ QR Code (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="qrPadding" min="10" max="50" value="20" oninput="updateQRSize()">
+                                <span class="slider-value">20px</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ระยะห่างและจัดตำแหน่ง -->
+                <div class="subsection">
+                    <h3>📏 ระยะห่างและจัดตำแหน่ง</h3>
+                    <div class="size-controls-grid">
+                        <div class="size-control">
+                            <label for="elementSpacing">ระยะห่างระหว่างคอมโพเนนต์ (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="elementSpacing" min="10" max="40" value="20" oninput="updateSpacing()">
+                                <span class="slider-value">20px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="size-control">
+                            <label for="inputHeight">ความสูงของ Input (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="inputHeight" min="40" max="70" value="50" oninput="updateSpacing()">
+                                <span class="slider-value">50px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="size-control">
+                            <label for="buttonHeight">ความสูงปุ่ม (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="buttonHeight" min="40" max="70" value="50" oninput="updateSpacing()">
+                                <span class="slider-value">50px</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="applySizeSettings()">📐 ใช้การตั้งค่าขนาด</button>
+                    <button class="btn-secondary" onclick="resetSizeSettings()">🔄 รีเซ็ตขนาด</button>
+                    <button class="btn-success" onclick="exportSizeSettings()">📤 ส่งออกการตั้งค่า</button>
+                </div>
+            </section>
+
+            <!-- ส่วนการตั้งค่าการทำงาน -->
+            <section class="admin-section">
+                <h2>⚙️ การตั้งค่าการทำงาน</h2>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="validEmail">อีเมลที่ถูกต้อง</label>
+                        <input type="email" id="validEmail" value="admin@line.com">
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label for="validPassword">รหัสผ่านที่ถูกต้อง</label>
+                        <input type="text" id="validPassword" value="admin123">
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label for="successMessage">ข้อความเข้าสู่ระบบสำเร็จ</label>
+                        <input type="text" id="successMessage" value="เข้าสู่ระบบสำเร็จ!">
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label for="errorMessage">ข้อความข้อผิดพลาด</label>
+                        <input type="text" id="errorMessage" value="อีเมลหรือรหัสผ่านไม่ถูกต้อง">
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="applySettings()">⚙️ ใช้การตั้งค่าใหม่</button>
+                    <button class="btn-secondary" onclick="resetSettings()">🔄 รีเซ็ตการตั้งค่า</button>
+                </div>
+            </section>
+
+            <!-- ส่วนปรับแต่งหน้ารหัสยืนยันตัวตน -->
+            <section class="admin-section">
+                <h2>🔐 ปรับแต่งหน้ารหัสยืนยันตัวตน</h2>
+                
+                <!-- ส่วนข้อความ -->
+                <div class="subsection">
+                    <h3>📝 ข้อความและเนื้อหา</h3>
+                    <div class="settings-grid">
+                        <div class="setting-item">
+                            <label for="verificationTitle">หัวข้อหลัก (LINE)</label>
+                            <input type="text" id="verificationTitle" value="LINE">
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationHeading">หัวข้อรอง</label>
+                            <input type="text" id="verificationHeading" value="รหัสยืนยันตัวตน">
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationDescription">คำอธิบาย</label>
+                            <textarea id="verificationDescription" rows="2">กรุณากรอกรหัสยืนยันที่ได้รับทาง LINE อย่างน้อย 4 หลัก</textarea>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationCode">รหัสยืนยัน</label>
+                            <input type="text" id="verificationCode" value="6085" maxlength="6">
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="timerMinutes">เวลานับถอยหลัง (นาที)</label>
+                            <input type="number" id="timerMinutes" value="3" min="1" max="10">
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="infoText">ข้อความข้อมูล</label>
+                            <textarea id="infoText" rows="2">ไม่ได้รับรหัสยืนยันผ่าน LINE<br>สำหรับเฉพาะท่านใหม่</textarea>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="alternativeLinkText">ข้อความลิงก์ทางเลือก</label>
+                            <input type="text" id="alternativeLinkText" value="เข้าสู่ระบบด้วยวิธีอื่น">
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="alternativeUrl">URL ลิงก์ทางเลือก</label>
+                            <input type="url" id="alternativeUrl" value="index.html" placeholder="https://example.com">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ส่วนสีและธีม -->
+                <div class="subsection">
+                    <h3>🎨 สีและธีม</h3>
+                    <div class="settings-grid">
+                        <div class="setting-item">
+                            <label for="verificationBgColor">สีพื้นหลัง</label>
+                            <div class="color-input-group">
+                                <input type="color" id="verificationBgColor" value="#1a1a1a">
+                                <input type="text" value="#1a1a1a">
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationContainerBg">สีกล่องหลัก</label>
+                            <div class="color-input-group">
+                                <input type="color" id="verificationContainerBg" value="#2a2a2a">
+                                <input type="text" value="#2a2a2a">
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationLineGreen">สี LINE (เขียว)</label>
+                            <div class="color-input-group">
+                                <input type="color" id="verificationLineGreen" value="#00c851">
+                                <input type="text" value="#00c851">
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationTextPrimary">สีข้อความหลัก</label>
+                            <div class="color-input-group">
+                                <input type="color" id="verificationTextPrimary" value="#ffffff">
+                                <input type="text" value="#ffffff">
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationTextSecondary">สีข้อความรอง</label>
+                            <div class="color-input-group">
+                                <input type="color" id="verificationTextSecondary" value="#cccccc">
+                                <input type="text" value="#cccccc">
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationLinkColor">สีลิงก์</label>
+                            <div class="color-input-group">
+                                <input type="color" id="verificationLinkColor" value="#4285f4">
+                                <input type="text" value="#4285f4">
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationCodeBg">สีพื้นหลังกล่องรหัส</label>
+                            <div class="color-input-group">
+                                <input type="color" id="verificationCodeBg" value="#333333">
+                                <input type="text" value="#333333">
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationCodeBorder">สีขอบกล่องรหัส</label>
+                            <div class="color-input-group">
+                                <input type="color" id="verificationCodeBorder" value="#555555">
+                                <input type="text" value="#555555">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ส่วนขนาดและสัดส่วน -->
+                <div class="subsection">
+                    <h3>📐 ขนาดและสัดส่วน</h3>
+                    <div class="settings-grid">
+                        <div class="setting-item">
+                            <label for="verificationContainerWidth">ความกว้างกล่อง (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="verificationContainerWidth" min="300" max="600" value="400">
+                                <span class="slider-value">400px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationContainerPadding">Padding กล่อง (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="verificationContainerPadding" min="20" max="60" value="40">
+                                <span class="slider-value">40px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationBorderRadius">มุมโค้งกล่อง (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="verificationBorderRadius" min="5" max="30" value="15">
+                                <span class="slider-value">15px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationFontSizeTitle">ขนาดฟอนต์หัวข้อหลัก (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="verificationFontSizeTitle" min="24" max="48" value="32">
+                                <span class="slider-value">32px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationFontSizeHeading">ขนาดฟอนต์หัวข้อรอง (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="verificationFontSizeHeading" min="18" max="32" value="24">
+                                <span class="slider-value">24px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationFontSizeCode">ขนาดฟอนต์รหัส (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="verificationFontSizeCode" min="32" max="64" value="48">
+                                <span class="slider-value">48px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationSpacingSections">ระยะห่างระหว่างส่วน (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="verificationSpacingSections" min="15" max="45" value="30">
+                                <span class="slider-value">30px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="verificationCodePadding">Padding กล่องรหัส (px)</label>
+                            <div class="slider-container">
+                                <input type="range" id="verificationCodePadding" min="10" max="30" value="20">
+                                <span class="slider-value">20px</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="applyVerificationSettings()">🔐 ใช้การตั้งค่าหน้ายืนยัน</button>
+                    <button class="btn-secondary" onclick="resetVerificationSettings()">🔄 รีเซ็ตการตั้งค่า</button>
+                    <button class="btn-info" onclick="previewVerification()">👁️ ดูตัวอย่าง</button>
+                </div>
+            </section>
+
+            <!-- ส่วนควบคุม OTP แบบแมนวล -->
+            <section class="admin-section">
+                <h2>🎛️ ควบคุม OTP แบบแมนวล</h2>
+                
+                <!-- สถานะ OTP ปัจจุบัน -->
+                <div class="subsection">
+                    <h3>📊 สถานะ OTP ปัจจุบัน</h3>
+                    <div class="otp-status-grid">
+                        <div class="status-item">
+                            <label>รหัส OTP ปัจจุบัน</label>
+                            <div class="status-display" id="currentOtpDisplay">6085</div>
+                        </div>
+                        
+                        <div class="status-item">
+                            <label>เวลาที่เหลือ</label>
+                            <div class="status-display timer-display" id="currentTimerDisplay">02:50</div>
+                        </div>
+                        
+                        <div class="status-item">
+                            <label>สถานะ</label>
+                            <div class="status-display status-active" id="otpStatusDisplay">ใช้งานได้</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- การควบคุม OTP -->
+                <div class="subsection">
+                    <h3>🎮 การควบคุม OTP</h3>
+                    <div class="otp-controls-grid">
+                        <div class="control-group">
+                            <h4>🔄 จัดการ OTP</h4>
+                            <div class="control-buttons">
+                                <button class="btn-success" onclick="generateNewOtp()">🆕 สร้าง OTP ใหม่</button>
+                                <button class="btn-warning" onclick="extendOtpTime()">⏰ ขยายเวลา +1 นาที</button>
+                                <button class="btn-danger" onclick="expireOtp()">❌ ทำให้ OTP หมดอายุ</button>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <h4>⏯️ ควบคุมเวลา</h4>
+                            <div class="control-buttons">
+                                <button class="btn-info" onclick="pauseTimer()" id="pauseBtn">⏸️ หยุดเวลา</button>
+                                <button class="btn-success" onclick="resumeTimer()" id="resumeBtn" style="display: none;">▶️ เริ่มเวลา</button>
+                                <button class="btn-secondary" onclick="resetTimer()">🔄 รีเซ็ตเวลา</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ส่ง OTP ให้ลูกค้า -->
+                <div class="subsection">
+                    <h3>📱 ส่ง OTP ให้ลูกค้า</h3>
+                    <div class="send-otp-grid">
+                        <div class="setting-item">
+                            <label for="customerContact">เบอร์โทร/LINE ID ลูกค้า</label>
+                            <input type="text" id="customerContact" placeholder="เช่น 081-234-5678 หรือ line_id">
+                            <small>กรอกข้อมูลติดต่อลูกค้า</small>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="otpToSend">รหัส OTP ที่จะส่ง</label>
+                            <input type="text" id="otpToSend" maxlength="6" placeholder="จะใช้รหัสปัจจุบัน" readonly>
+                            <small>รหัสจากระบบปัจจุบัน หรือตั้งใหม่ด้านล่าง</small>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="sendMethod">วิธีการส่ง</label>
+                            <select id="sendMethod">
+                                <option value="sms">📱 SMS</option>
+                                <option value="line">💬 LINE</option>
+                                <option value="call">📞 โทรศัพท์</option>
+                                <option value="manual">👤 แจ้งด้วยตนเอง</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item full-width">
+                            <div class="send-buttons">
+                                <button class="btn-primary" onclick="sendOtpToCustomer()">📤 ส่ง OTP ให้ลูกค้า</button>
+                                <button class="btn-secondary" onclick="copyOtpCode()">📋 คัดลอกรหัส</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item full-width">
+                            <div class="send-status" id="sendStatus" style="display: none;">
+                                <div class="status-message"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ตั้งค่า OTP แบบกำหนดเอง -->
+                <div class="subsection">
+                    <h3>⚙️ ตั้งค่า OTP แบบกำหนดเอง</h3>
+                    <div class="custom-otp-grid">
+                        <div class="setting-item">
+                            <label for="customOtpCode">รหัส OTP ที่ต้องการ</label>
+                            <input type="text" id="customOtpCode" maxlength="6" placeholder="เช่น 1234" pattern="[0-9]*">
+                            <small>ใส่ตัวเลข 4-6 หลัก</small>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="customOtpMinutes">เวลาที่ต้องการ (นาที)</label>
+                            <input type="number" id="customOtpMinutes" min="1" max="10" value="3">
+                            <small>1-10 นาที</small>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="customOtpSeconds">เวลาที่ต้องการ (วินาที)</label>
+                            <input type="number" id="customOtpSeconds" min="0" max="59" value="0">
+                            <small>0-59 วินาที</small>
+                        </div>
+                        
+                        <div class="setting-item full-width">
+                            <button class="btn-primary" onclick="setCustomOtp()">🎯 ตั้งค่า OTP แบบกำหนดเอง</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- การตั้งค่าขั้นสูง -->
+                <div class="subsection">
+                    <h3>🔧 การตั้งค่าขั้นสูง</h3>
+                    <div class="advanced-settings-grid">
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" id="autoGenerateOtp" checked>
+                                สร้าง OTP ใหม่อัตโนมัติเมื่อหมดอายุ
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" id="showOtpNotification" checked>
+                                แสดงการแจ้งเตือนเมื่อ OTP เปลี่ยนแปลง
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="defaultOtpLength">ความยาว OTP เริ่มต้น</label>
+                            <select id="defaultOtpLength">
+                                <option value="4">4 หลัก</option>
+                                <option value="5">5 หลัก</option>
+                                <option value="6" selected>6 หลัก</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="defaultOtpDuration">ระยะเวลา OTP เริ่มต้น (นาที)</label>
+                            <select id="defaultOtpDuration">
+                                <option value="1">1 นาที</option>
+                                <option value="2">2 นาที</option>
+                                <option value="3" selected>3 นาที</option>
+                                <option value="5">5 นาที</option>
+                                <option value="10">10 นาที</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-success" onclick="saveOtpSettings()">💾 บันทึกการตั้งค่า OTP</button>
+                    <button class="btn-secondary" onclick="resetOtpSettings()">🔄 รีเซ็ตการตั้งค่า</button>
+                    <button class="btn-info" onclick="exportOtpLogs()">📊 ส่งออกบันทึก OTP</button>
+                </div>
+            </section>
+
+            <!-- ส่วนตัวอย่างแบบเรียลไทม์ -->
+            <section class="admin-section">
+                <h2>👁️ ตัวอย่างแบบเรียลไทม์</h2>
+                <div class="preview-tabs">
+                    <button class="tab-btn active" onclick="switchPreview('index.html')">หน้าล็อกอิน</button>
+                    <button class="tab-btn" onclick="switchPreview('verification.html')">หน้ายืนยันตัวตน</button>
+                </div>
+                <div class="preview-container">
+                    <iframe id="previewFrame" src="index.html" width="100%" height="600"></iframe>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="refreshPreview()">🔄 รีเฟรชตัวอย่าง</button>
+                    <button class="btn-secondary" onclick="openInNewTab()">🔗 เปิดในแท็บใหม่</button>
+                    <button class="btn-success" onclick="saveAll()">💾 บันทึกทั้งหมด</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>
+

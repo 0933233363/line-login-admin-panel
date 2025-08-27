@@ -1,0 +1,170 @@
+{
+  "themes": {
+    "dark": {
+      "name": "ธีมมืด (Dark Theme)",
+      "colors": {
+        "bgColor": "#1a1a1a",
+        "boxColor": "#2a2a2a",
+        "logoColor": "#00c300",
+        "inputBgColor": "#3a3a3a",
+        "inputBorderColor": "#555555",
+        "inputTextColor": "#ffffff",
+        "btnEnabledColor": "#00c851",
+        "btnDisabledColor": "#4a4a4a",
+        "textColor": "#ffffff",
+        "secondaryTextColor": "#aaaaaa",
+        "errorColor": "#ff4444",
+        "linkColor": "#4a9eff"
+      },
+      "texts": {
+        "emailLabel": "อีเมล",
+        "passwordLabel": "รหัสผ่าน",
+        "loginBtnText": "เข้าสู่ระบบ",
+        "qrBtnText": "เข้าสู่ระบบด้วยคิวอาร์โค้ด",
+        "forgotText": "ลืมรหัสผ่าน?",
+        "qrTitle": "เข้าสู่ระบบด้วยคิวอาร์โค้ด",
+        "qrRefresh": "🔄 สร้างคิวอาร์โค้ดใหม่",
+        "backBtnText": "เข้าสู่ระบบด้วยอีเมล"
+      },
+      "settings": {
+        "validEmail": "admin@line.com",
+        "validPassword": "admin123",
+        "successMessage": "เข้าสู่ระบบสำเร็จ!",
+        "errorMessage": "อีเมลหรือรหัสผ่านไม่ถูกต้อง"
+      }
+    },
+    "light": {
+      "name": "ธีมสว่าง (Light Theme)",
+      "colors": {
+        "bgColor": "#f8f9fa",
+        "boxColor": "#ffffff",
+        "logoColor": "#00c300",
+        "inputBgColor": "#ffffff",
+        "inputBorderColor": "#dee2e6",
+        "inputTextColor": "#333333",
+        "btnEnabledColor": "#00c851",
+        "btnDisabledColor": "#e9ecef",
+        "textColor": "#333333",
+        "secondaryTextColor": "#6c757d",
+        "errorColor": "#dc3545",
+        "linkColor": "#007bff"
+      },
+      "texts": {
+        "emailLabel": "อีเมล",
+        "passwordLabel": "รหัสผ่าน",
+        "loginBtnText": "เข้าสู่ระบบ",
+        "qrBtnText": "เข้าสู่ระบบด้วยคิวอาร์โค้ด",
+        "forgotText": "ลืมรหัสผ่าน?",
+        "qrTitle": "เข้าสู่ระบบด้วยคิวอาร์โค้ด",
+        "qrRefresh": "🔄 สร้างคิวอาร์โค้ดใหม่",
+        "backBtnText": "เข้าสู่ระบบด้วยอีเมล"
+      },
+      "settings": {
+        "validEmail": "admin@line.com",
+        "validPassword": "admin123",
+        "successMessage": "เข้าสู่ระบบสำเร็จ!",
+        "errorMessage": "อีเมลหรือรหัสผ่านไม่ถูกต้อง"
+      }
+    },
+    "line_green": {
+      "name": "ธีม LINE เขียว",
+      "colors": {
+        "bgColor": "#00c300",
+        "boxColor": "#ffffff",
+        "logoColor": "#00c300",
+        "inputBgColor": "#f8f9fa",
+        "inputBorderColor": "#00c300",
+        "inputTextColor": "#333333",
+        "btnEnabledColor": "#00a000",
+        "btnDisabledColor": "#e9ecef",
+        "textColor": "#333333",
+        "secondaryTextColor": "#6c757d",
+        "errorColor": "#dc3545",
+        "linkColor": "#00c300"
+      },
+      "texts": {
+        "emailLabel": "อีเมล",
+        "passwordLabel": "รหัสผ่าน",
+        "loginBtnText": "เข้าสู่ระบบ",
+        "qrBtnText": "เข้าสู่ระบบด้วยคิวอาร์โค้ด",
+        "forgotText": "ลืมรหัสผ่าน?",
+        "qrTitle": "เข้าสู่ระบบด้วยคิวอาร์โค้ด",
+        "qrRefresh": "🔄 สร้างคิวอาร์โค้ดใหม่",
+        "backBtnText": "เข้าสู่ระบบด้วยอีเมล"
+      },
+      "settings": {
+        "validEmail": "admin@line.com",
+        "validPassword": "admin123",
+        "successMessage": "เข้าสู่ระบบสำเร็จ!",
+        "errorMessage": "อีเมลหรือรหัสผ่านไม่ถูกต้อง"
+      }
+    },
+    "corporate": {
+      "name": "ธีมองค์กร (Corporate Theme)",
+      "colors": {
+        "bgColor": "#2c3e50",
+        "boxColor": "#34495e",
+        "logoColor": "#3498db",
+        "inputBgColor": "#ecf0f1",
+        "inputBorderColor": "#bdc3c7",
+        "inputTextColor": "#2c3e50",
+        "btnEnabledColor": "#3498db",
+        "btnDisabledColor": "#95a5a6",
+        "textColor": "#ecf0f1",
+        "secondaryTextColor": "#bdc3c7",
+        "errorColor": "#e74c3c",
+        "linkColor": "#3498db"
+      },
+      "texts": {
+        "emailLabel": "Email Address",
+        "passwordLabel": "Password",
+        "loginBtnText": "Sign In",
+        "qrBtnText": "Sign In with QR Code",
+        "forgotText": "Forgot Password?",
+        "qrTitle": "Sign In with QR Code",
+        "qrRefresh": "🔄 Generate New QR Code",
+        "backBtnText": "Sign In with Email"
+      },
+      "settings": {
+        "validEmail": "admin@company.com",
+        "validPassword": "admin123",
+        "successMessage": "Login Successful!",
+        "errorMessage": "Invalid email or password"
+      }
+    },
+    "neon": {
+      "name": "ธีมนีออน (Neon Theme)",
+      "colors": {
+        "bgColor": "#0a0a0a",
+        "boxColor": "#1a1a1a",
+        "logoColor": "#00ff41",
+        "inputBgColor": "#2a2a2a",
+        "inputBorderColor": "#00ff41",
+        "inputTextColor": "#00ff41",
+        "btnEnabledColor": "#00ff41",
+        "btnDisabledColor": "#333333",
+        "textColor": "#00ff41",
+        "secondaryTextColor": "#666666",
+        "errorColor": "#ff0040",
+        "linkColor": "#00ffff"
+      },
+      "texts": {
+        "emailLabel": "อีเมล",
+        "passwordLabel": "รหัสผ่าน",
+        "loginBtnText": "เข้าสู่ระบบ",
+        "qrBtnText": "เข้าสู่ระบบด้วยคิวอาร์โค้ด",
+        "forgotText": "ลืมรหัสผ่าน?",
+        "qrTitle": "เข้าสู่ระบบด้วยคิวอาร์โค้ด",
+        "qrRefresh": "🔄 สร้างคิวอาร์โค้ดใหม่",
+        "backBtnText": "เข้าสู่ระบบด้วยอีเมล"
+      },
+      "settings": {
+        "validEmail": "admin@line.com",
+        "validPassword": "admin123",
+        "successMessage": "เข้าสู่ระบบสำเร็จ!",
+        "errorMessage": "อีเมลหรือรหัสผ่านไม่ถูกต้อง"
+      }
+    }
+  }
+}
+

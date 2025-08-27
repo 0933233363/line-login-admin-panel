@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ LINE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background-color: #2a2a2a;
+            border-radius: 15px;
+            padding: 40px;
+            width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: #00c300;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #555555;
+            border-radius: 8px;
+            background-color: #3a3a3a;
+            color: #ffffff;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input::placeholder {
+            color: #888888;
+        }
+
+        .form-group input:focus {
+            outline: none;
+        }
+
+        /* สีขอบเมื่อกรอกข้อมูลถูกต้อง */
+        .form-group input.valid {
+            border-color: #00c300;
+        }
+
+        /* สีขอบเมื่อกรอกข้อมูลผิด */
+        .form-group input.invalid {
+            border-color: #ff4444;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* ปุ่มเมื่อยังไม่กรอกข้อมูล - สีเทาตามภาพที่ 2 */
+        .login-btn.disabled {
+            background-color: #4a4a4a;
+            color: #888888;
+            cursor: not-allowed;
+        }
+
+        /* ปุ่มเมื่อกรอกข้อมูลแล้ว - สีเขียวตามภาพที่ 1 */
+        .login-btn.enabled {
+            background-color: #00c851;
+            color: #ffffff;
+        }
+
+        .divider {
+            text-align: center;
+            margin: var(--divider-spacing, 20px) 0;
+            position: relative;
+            display: var(--divider-display, block);
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: var(--divider-thickness, 1px);
+            background-color: var(--divider-color, #555555);
+        }
+
+        .divider span {
+            background-color: #2a2a2a;
+            padding: 0 var(--divider-text-padding, 15px);
+            color: var(--divider-text-color, #aaaaaa);
+            font-size: var(--divider-font-size, 14px);
+        }
+
+        .qr-btn {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #555555;
+            border-radius: 8px;
+            background-color: transparent;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        .qr-btn:hover {
+            border-color: #00c300;
+        }
+
+        .links {
+            text-align: center;
+        }
+
+        .links a {
+            color: #4a9eff;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 10px;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666666;
+        }
+
+        /* หน้า QR Code */
+        .qr-page {
+            display: none;
+            text-align: center;
+        }
+
+        .qr-page.active {
+            display: block;
+        }
+
+        .qr-title {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background-color: #ffffff;
+            margin: 0 auto 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .qr-pattern {
+            width: 180px;
+            height: 180px;
+            background-image: 
+                repeating-linear-gradient(0deg, #000 0px, #000 10px, transparent 10px, transparent 20px),
+                repeating-linear-gradient(90deg, #000 0px, #000 10px, transparent 10px, transparent 20px);
+            position: relative;
+        }
+
+        .qr-pattern::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
+            background: #000;
+            border: 5px solid #000;
+        }
+
+        .qr-pattern::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background: #000;
+            border: 5px solid #000;
+        }
+
+        .qr-info {
+            margin: 20px 0;
+        }
+
+        .qr-info p {
+            font-size: 12px;
+            color: #aaaaaa;
+            margin-bottom: 5px;
+        }
+
+        .qr-refresh {
+            color: #aaaaaa;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .back-btn {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #555555;
+            border-radius: 8px;
+            background-color: transparent;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            border-color: #00c300;
+        }
+
+        .otp-btn {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #00c300;
+            border-radius: 8px;
+            background-color: #00c300;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .otp-btn:hover {
+            background-color: #00a300;
+            border-color: #00a300;
+        }
+
+        .qr-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .qr-links a {
+            color: #4a9eff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .qr-links a:hover {
+            text-decoration: underline;
+        }
+
+        .email-page {
+            display: block;
+        }
+
+        .email-page.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- หน้าล็อกอินด้วยอีเมล -->
+    <div class="login-container">
+        <div class="email-page" id="emailPage">
+            <div class="logo">
+                <h1>LINE</h1>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">อีเมล</label>
+                <input type="email" id="email" placeholder="">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">รหัสผ่าน</label>
+                <input type="password" id="password" placeholder="">
+            </div>
+            
+            <button class="login-btn disabled" id="loginBtn">เข้าสู่ระบบ</button>
+            
+            <div class="divider">
+                <span>เข้าสู่ระบบด้วยวิธีอื่น</span>
+            </div>
+            
+            <button class="qr-btn" id="qrBtn">เข้าสู่ระบบด้วยคิวอาร์โค้ด</button>
+            
+            <div class="divider">
+                <span>กรณีที่เข้าสู่ระบบไม่ได้</span>
+            </div>
+            
+            <div class="links">
+                <a href="#forgot">ลืมรหัสผ่าน?</a>
+            </div>
+        </div>
+
+        <!-- หน้าล็อกอินด้วย QR Code -->
+        <div class="qr-page" id="qrPage">
+            <div class="logo">
+                <h1>LINE</h1>
+            </div>
+            
+            <div class="qr-title">เข้าสู่ระบบด้วยคิวอาร์โค้ด</div>
+            
+            <div class="qr-code">
+                <div class="qr-pattern"></div>
+            </div>
+            
+            <div class="qr-refresh">🔄 สร้างคิวอาร์โค้ดใหม่</div>
+            
+            <div class="qr-info">
+                <p>โปรดเปิดแอป LINE สำหรับสมาร์ทโฟนเพื่อสแกนคิวอาร์โค้ด</p>
+                <p>สแกนคิวอาร์โค้ด</p>
+            </div>
+            
+            <button class="back-btn" id="backBtn">เข้าสู่ระบบด้วยอีเมล</button>
+            
+            <!-- ปุ่มส่งรหัส OTP สำหรับกรณีสแกน QR ไม่ได้ -->
+            <button class="otp-btn" id="otpBtn">ส่งรหัส OTP</button>
+            
+            <div class="qr-links">
+                <a href="#help">วิธีแสกนคิวอาร์โค้ด</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <span>© LY Corporation</span>
+        <div>
+            <span>นโยบายความเป็นส่วนตัว</span>
+            <span style="margin-left: 20px;">ข้อกำหนดการใช้งาน</span>
+        </div>
+    </div>
+
+    <script>
+        // ข้อมูลล็อกอินที่ถูกต้อง
+        const validCredentials = {
+            email: 'admin@line.com',
+            password: 'admin123'
+        };
+
+        // ดึง elements
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const qrBtn = document.getElementById('qrBtn');
+        const backBtn = document.getElementById('backBtn');
+        const emailPage = document.getElementById('emailPage');
+        const qrPage = document.getElementById('qrPage');
+
+        // ฟังก์ชันตรวจสอบอีเมล
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email) && email === validCredentials.email;
+        }
+
+        // ฟังก์ชันตรวจสอบรหัสผ่าน
+        function isValidPassword(password) {
+            return password === validCredentials.password;
+        }
+
+        // ฟังก์ชันอัปเดตสถานะช่องกรอกข้อมูล
+        function updateInputStatus() {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            // ตรวจสอบอีเมล
+            if (email === '') {
+                emailInput.className = '';
+            } else if (isValidEmail(email)) {
+                emailInput.className = 'valid';
+            } else {
+                emailInput.className = 'invalid';
+            }
+
+            // ตรวจสอบรหัสผ่าน
+            if (password === '') {
+                passwordInput.className = '';
+            } else if (isValidPassword(password)) {
+                passwordInput.className = 'valid';
+            } else {
+                passwordInput.className = 'invalid';
+            }
+
+            // อัปเดตสถานะปุ่ม - ตามข้อกำหนดใหม่
+            // ถ้ายังไม่กรอกอะไรเลย หรือกรอกไม่ครบ = ปุ่มเทา
+            // ถ้ากรอกครบแล้ว (ไม่ว่าจะถูกหรือผิด) = ปุ่มเขียว
+            if (email === '' || password === '') {
+                loginBtn.className = 'login-btn disabled';
+            } else {
+                loginBtn.className = 'login-btn enabled';
+            }
+        }
+
+        // Event listeners สำหรับช่องกรอกข้อมูล
+        emailInput.addEventListener('input', updateInputStatus);
+        passwordInput.addEventListener('input', updateInputStatus);
+
+        // Event listener สำหรับปุ่มเข้าสู่ระบบ
+        loginBtn.addEventListener('click', function() {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (email === '' || password === '') {
+                alert('กรุณากรอกอีเมลและรหัสผ่าน');
+                return;
+            }
+
+            if (isValidEmail(email) && isValidPassword(password)) {
+                alert('เข้าสู่ระบบสำเร็จ!');
+                // ที่นี่สามารถเพิ่มโค้ดสำหรับการเข้าสู่ระบบจริง
+            } else {
+                alert('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
+            }
+        });
+
+        // Event listener สำหรับปุ่ม QR Code
+        qrBtn.addEventListener('click', function() {
+            emailPage.style.display = 'none';
+            qrPage.style.display = 'block';
+        });
+
+        // Event listener สำหรับปุ่มกลับ
+        backBtn.addEventListener('click', function() {
+            qrPage.style.display = 'none';
+            emailPage.style.display = 'block';
+        });
+
+        // Event listener สำหรับปุ่ม OTP
+        document.getElementById('otpBtn').addEventListener('click', function() {
+            // สร้างรหัส OTP แบบสุ่ม 4 หลัก
+            const otpCode = Math.floor(1000 + Math.random() * 9000);
+            
+            // แสดงข้อความแจ้งเตือน
+            alert(`รหัส OTP ของคุณคือ: ${otpCode}\n\nกรุณาจดจำรหัสนี้และกดตกลงเพื่อไปหน้ากรอกรหัส`);
+            
+            // เก็บรหัส OTP ใน localStorage เพื่อใช้ในหน้า verification
+            localStorage.setItem('currentOTP', otpCode);
+            localStorage.setItem('otpExpiry', Date.now() + 180000); // หมดอายุใน 3 นาที
+            
+            // ไปหน้า verification
+            window.location.href = 'verification.html';
+        });
+
+        // Event listeners สำหรับลิงก์ต่างๆ
+        document.querySelector('a[href="#forgot"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('ฟีเจอร์ลืมรหัสผ่านจะเปิดให้ใช้งานเร็วๆ นี้');
+        });
+
+        document.querySelector('a[href="#help"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('วิธีแสกน QR Code:\n1. เปิดแอป LINE\n2. ไปที่เมนู "เพิ่มเพื่อน"\n3. เลือก "QR Code"\n4. สแกน QR Code บนหน้าจอ');
+        });
+
+        // เริ่มต้นด้วยการอัปเดตสถานะ
+        updateInputStatus();
+    </script>
+</body>
+</html>
+

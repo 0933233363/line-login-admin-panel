@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE Login Dashboard</title>
+    <link rel="stylesheet" href="dashboard-style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1>🔧 LINE Login Dashboard</h1>
+                    <p>ยินดีต้อนรับสู่ระบบจัดการ LINE Login</p>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar">A</div>
+                    <div class="user-details">
+                        <span class="user-name">ผู้ดูแลระบบ</span>
+                        <span class="user-email">admin@line.com</span>
+                    </div>
+                    <button class="logout-btn" onclick="logout()">ออกจากระบบ</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Content -->
+        <main class="dashboard-main">
+            <!-- Top 3 Menu Cards -->
+            <section class="top-menu-section">
+                <div class="menu-card" onclick="openStats()">
+                    <div class="card-icon">📊</div>
+                    <h3>สถิติการใช้งาน</h3>
+                    <p>ดูสถิติและรายงานการใช้งานระบบ</p>
+                    <button class="card-btn">ดูสถิติ</button>
+                </div>
+                
+                <div class="menu-card" onclick="openSystemSettings()">
+                    <div class="card-icon">⚙️</div>
+                    <h3>ตั้งค่าระบบ</h3>
+                    <p>จัดการการตั้งค่าหลักๆ ของระบบ</p>
+                    <button class="card-btn">ตั้งค่า</button>
+                </div>
+                
+                <div class="menu-card" onclick="openPreview()">
+                    <div class="card-icon">🔧</div>
+                    <h3>ตัวอย่างแบบเรียลไทม์</h3>
+                    <p>ดูตัวอย่างหน้าล็อกอินที่ปรับแต่งแล้ว</p>
+                    <button class="card-btn">ดูตัวอย่าง</button>
+                </div>
+            </section>
+
+            <!-- Main Action Buttons -->
+            <section class="main-actions">
+                <h2>🎛️ Dashboard</h2>
+                <p>ยินดีต้อนรับสู่ระบบจัดการ LINE Login</p>
+                
+                <div class="action-buttons-grid">
+                    <button class="action-btn primary" onclick="openAdminPanel()">
+                        ⭐ Admin Panel
+                    </button>
+                    <button class="action-btn secondary" onclick="openPreview()">
+                        👁️ ดูตัวอย่าง
+                    </button>
+                    <button class="action-btn success" onclick="downloadFiles()">
+                        📥 ดาวน์โหลดไฟล์
+                    </button>
+                </div>
+            </section>
+
+            <!-- Bottom Menu Cards -->
+            <section class="bottom-menu-section">
+                <div class="menu-card" onclick="openThemeManager()">
+                    <div class="card-icon">🎨</div>
+                    <h3>จัดการธีมสี</h3>
+                    <p>ปรับแต่งสีและรูปแบบของหน้าล็อกอิน</p>
+                    <button class="card-btn">เริ่มปรับแต่ง</button>
+                </div>
+                
+                <div class="menu-card" onclick="openLogoManager()">
+                    <div class="card-icon">🖼️</div>
+                    <h3>จัดการโลโก้</h3>
+                    <p>อัปโหลดและปรับแต่งโลโก้ของระบบ</p>
+                    <button class="card-btn">จัดการโลโก้</button>
+                </div>
+                
+                <div class="menu-card" onclick="openTextEditor()">
+                    <div class="card-icon">📝</div>
+                    <h3>แก้ไขข้อความ</h3>
+                    <p>ปรับแต่งข้อความที่แสดงในหน้าล็อกอิน</p>
+                    <button class="card-btn">แก้ไขข้อความ</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <p>&copy; 2025 LINE Login Admin Panel v2.0 - พัฒนาโดย Manus</p>
+        </footer>
+    </div>
+
+    <script src="dashboard-script.js"></script>
+</body>
+</html>
+
